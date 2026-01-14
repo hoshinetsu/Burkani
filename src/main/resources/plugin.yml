@@ -1,8 +1,8 @@
 name: Burkani
 version: '1.0-SNAPSHOT'
-main: moe.hoshinetsu.burkani.Main
+main: moe.hoshinetsu.burkani.PluginBurkani
 api-version: '1.21'
-prefix: [ Burkani ]
-authors: [ hoshinetsu ]
-description: Share Experience Points through Enchanted Bottles
+prefix: Burkani
+authors: [ 'Akamuru' ]
+description: 'Share Experience Points through Enchanted Bottles'
 website: https://hoshinetsu.moe
