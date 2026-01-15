@@ -28,8 +28,20 @@ public final class Burkaner {
         return 0;
     }
 
+    public float getExp(ItemMeta meta) {
+        assert meta != null;
+        PersistentDataContainer dc = meta.getPersistentDataContainer();
+        try {
+            float exp = dc.get(Keys.KEY_EXP, PersistentDataType.FLOAT);
+            return Math.max(exp, 0f);
+        } catch (NullPointerException ignored){
+            ;
+        }
+        return 0f;
+    }
+
     public boolean isEmpty(ItemMeta meta) {
-        return getLevel(meta) > 0;
+        return getLevel(meta) == 0 && getExp(meta) == 0f;
     }
 
     public ItemStack getBurkan(){
@@ -51,6 +63,7 @@ public final class Burkaner {
     }
 
     public void setAmount(ItemMeta meta, float xp, int lvl){
+        assert meta != null;
         if(xp < 0) xp = 0;
         if(lvl < 0) lvl = 0;
         PersistentDataContainer dc = meta.getPersistentDataContainer();

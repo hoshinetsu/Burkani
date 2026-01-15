@@ -30,7 +30,7 @@ public class BurkanListener implements Listener {
             int lvl = player.getLevel();
             if(b.isEmpty(meta)) {
                 if(lvl < 10) {
-                    b.setAmount(meta, 0, lvl);
+                    b.setAmount(meta, player.getExp(), lvl);
                     player.setLevel(0);
                     player.setExp(0f);
                 } else {
@@ -39,6 +39,7 @@ public class BurkanListener implements Listener {
                 }
             } else {
                 lvl += b.getLevel(meta);
+                player.setExp(b.getExp(meta));
                 b.setAmount(meta, 0, 0);
                 player.setLevel(lvl);
             }
