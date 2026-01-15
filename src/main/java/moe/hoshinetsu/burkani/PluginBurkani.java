@@ -22,7 +22,7 @@ public final class PluginBurkani extends JavaPlugin {
     }
 
     private void initCrafting(){
-        ShapedRecipe recipe = new ShapedRecipe(Keys.KEY_BURKAN, Burkaner.getInstance().emptyBurkan());
+        ShapedRecipe recipe = new ShapedRecipe(Keys.KEY_BURKAN, Burkaner.getInstance().getBurkan());
 
         recipe.shape(" M ", "MBM", " M ");
         recipe.setIngredient('B', Material.EXPERIENCE_BOTTLE);

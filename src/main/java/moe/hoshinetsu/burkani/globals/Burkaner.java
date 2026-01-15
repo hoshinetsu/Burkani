@@ -16,7 +16,22 @@ public final class Burkaner {
 
     private final String DISPLAYNAME = ChatColor.GREEN + "Burkan";
 
-    public ItemStack emptyBurkan(){
+    public static boolean isEmpty(ItemMeta meta) {
+        assert meta != null;
+        PersistentDataContainer dc = meta.getPersistentDataContainer();
+        try {
+            float exp = dc.get(Keys.KEY_EXP, PersistentDataType.FLOAT);
+            int levels = dc.get(Keys.KEY_LEVELS, PersistentDataType.INTEGER);
+            if(!isEmpty(meta)) {
+                meta.setLore(List.of(String.format("Contains %d levels and %f XP", levels, exp), "Throw to obtain them"));
+                return;
+            }
+        } catch (NullPointerException ignored){
+            ;
+        }
+    }
+
+    public ItemStack getBurkan(){
         ItemStack burkan = new ItemStack(Material.EXPERIENCE_BOTTLE, 1);
 
         ItemMeta meta = burkan.getItemMeta();
@@ -28,11 +43,19 @@ public final class Burkaner {
 
         PersistentDataContainer dc = meta.getPersistentDataContainer();
         dc.set(Keys.KEY_BURKAN, PersistentDataType.BOOLEAN, true);
-        dc.set(Keys.KEY_EXP, PersistentDataType.FLOAT, 0f);
-        dc.set(Keys.KEY_LEVELS, PersistentDataType.INTEGER, 0);
+        setAmount(meta, 0f, 0);
 
         burkan.setItemMeta(meta);
         return burkan;
+    }
+
+    public void setAmount(ItemMeta meta, float xp, int lvl){
+        if(xp < 0) xp = 0;
+        if(lvl < 0) lvl = 0;
+        PersistentDataContainer dc = meta.getPersistentDataContainer();
+        dc.set(Keys.KEY_EXP, PersistentDataType.FLOAT, xp);
+        dc.set(Keys.KEY_LEVELS, PersistentDataType.INTEGER, lvl);
+        updateLore(meta);
     }
 
     public void updateLore(ItemMeta meta){
@@ -41,8 +64,9 @@ public final class Burkaner {
         try {
             float exp = dc.get(Keys.KEY_EXP, PersistentDataType.FLOAT);
             int levels = dc.get(Keys.KEY_LEVELS, PersistentDataType.INTEGER);
-            if(exp > 0f || levels > 0) {
+            if(!isEmpty(meta)) {
                 meta.setLore(List.of(String.format("Contains %d levels and %f XP", levels, exp), "Throw to obtain them"));
+                return;
             }
         } catch (NullPointerException ignored){
             ;
