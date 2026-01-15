@@ -1,9 +1,7 @@
-package moe.hoshinetsu.burkani.globals;
+package moe.hoshinetsu.burkani.util;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -14,34 +12,22 @@ import java.util.List;
 public final class Burkaner {
     private static Burkaner instance;
 
-    private final String DISPLAYNAME = ChatColor.GREEN + "Burkan";
+    private final String DISPLAYNAME = ChatColor.GREEN + "Exp Burkan";
 
-    public int getLevel(ItemMeta meta){
+    public int getExp(ItemMeta meta) {
         assert meta != null;
         PersistentDataContainer dc = meta.getPersistentDataContainer();
         try {
-            int lvl = dc.get(Keys.KEY_LEVELS, PersistentDataType.INTEGER);
-            return Math.max(lvl, 0);
+            int exp = dc.get(Keys.KEY_TEXP, PersistentDataType.INTEGER);
+            return Math.max(exp, 0);
         } catch (NullPointerException ignored){
             ;
         }
         return 0;
     }
 
-    public float getExp(ItemMeta meta) {
-        assert meta != null;
-        PersistentDataContainer dc = meta.getPersistentDataContainer();
-        try {
-            float exp = dc.get(Keys.KEY_EXP, PersistentDataType.FLOAT);
-            return Math.max(exp, 0f);
-        } catch (NullPointerException ignored){
-            ;
-        }
-        return 0f;
-    }
-
     public boolean isEmpty(ItemMeta meta) {
-        return getLevel(meta) == 0 && getExp(meta) == 0f;
+        return getExp(meta) == 0;
     }
 
     public ItemStack getBurkan(){
@@ -51,40 +37,43 @@ public final class Burkaner {
         assert meta != null;
         meta.setDisplayName(DISPLAYNAME);
         meta.setMaxStackSize(1);
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        meta.addEnchant(Enchantment.INFINITY, 1, true);
 
         PersistentDataContainer dc = meta.getPersistentDataContainer();
         dc.set(Keys.KEY_BURKAN, PersistentDataType.BOOLEAN, true);
-        setAmount(meta, 0f, 0);
+        setAmount(meta, 0);
 
         burkan.setItemMeta(meta);
         return burkan;
     }
 
-    public void setAmount(ItemMeta meta, float xp, int lvl){
+    public void setAmount(ItemMeta meta, int xp){
         assert meta != null;
         if(xp < 0) xp = 0;
-        if(lvl < 0) lvl = 0;
         PersistentDataContainer dc = meta.getPersistentDataContainer();
-        dc.set(Keys.KEY_EXP, PersistentDataType.FLOAT, xp);
-        dc.set(Keys.KEY_LEVELS, PersistentDataType.INTEGER, lvl);
+        dc.set(Keys.KEY_TEXP, PersistentDataType.INTEGER, xp);
         updateLore(meta);
+    }
+
+    private void nameItem(ItemMeta meta, String s1, String s2){
+        meta.setLore(List.of(ChatColor.DARK_GREEN + "Capacity: 160 XP", ChatColor.DARK_GREEN + s1, ChatColor.DARK_GREEN + s2));
     }
 
     public void updateLore(ItemMeta meta){
         assert meta != null;
-        PersistentDataContainer dc = meta.getPersistentDataContainer();
         try {
-            int level = getLevel(meta);
-            if(level > 0) {
-                meta.setLore(List.of(String.format("Contains %d levels", level), "Throw to obtain them"));
+            int xp = getExp(meta);
+            if(xp > 0) {
+                nameItem(meta,
+                        String.format("Contains %d/160 XP", xp),
+                        "Throw to obtain");
                 return;
             }
         } catch (NullPointerException ignored){
             ;
         }
-        meta.setLore(List.of("Empty", "Throw to store up to 10 levels."));
+        nameItem(meta,
+                "Currently Empty",
+                "Throw to store");
     }
 
     public static Burkaner getInstance(){

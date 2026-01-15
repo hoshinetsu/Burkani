@@ -1,8 +1,8 @@
 package moe.hoshinetsu.burkani;
 
 import moe.hoshinetsu.burkani.event.BurkanListener;
-import moe.hoshinetsu.burkani.globals.Keys;
-import moe.hoshinetsu.burkani.globals.Burkaner;
+import moe.hoshinetsu.burkani.util.Keys;
+import moe.hoshinetsu.burkani.util.Burkaner;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ShapedRecipe;
