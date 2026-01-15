@@ -3,16 +3,23 @@ package moe.hoshinetsu.burkani.util;
 import org.bukkit.entity.Player;
 
 public final class XpManager {
-    public static int getPlayerTotalXp(Player player) {
-        int level = player.getLevel();
-        int xpFromLevels = 0;
 
+    private static int getXpToNextLevel(int level) {
+        if (level <= 15) return 2 * level + 7;
+        if (level <= 30) return 5 * level - 38;
+        return 9 * level - 158;
+    }
+
+    public static int getPlayerTotalXp(Player player) {
+        return getTotalXp(player.getLevel(), player.getExp());
+    }
+
+    public static int getTotalXp(int level, float exp) {
+        int xpFromLevels = 0;
         for (int i = 0; i < level; i++) {
             xpFromLevels += getXpToNextLevel(i);
         }
-
-        int xpFromBar = Math.round(player.getExp() * getXpToNextLevel(level));
-
+        int xpFromBar = Math.round(exp * getXpToNextLevel(level));
         return xpFromLevels + xpFromBar;
     }
 
@@ -36,11 +43,5 @@ public final class XpManager {
 
         float percent = (float) xpRemaining / (float) getXpToNextLevel(currentLevel);
         player.setExp(percent);
-    }
-
-    private static int getXpToNextLevel(int level) {
-        if (level <= 15) return 2 * level + 7;
-        if (level <= 30) return 5 * level - 38;
-        return 9 * level - 158;
     }
 }
