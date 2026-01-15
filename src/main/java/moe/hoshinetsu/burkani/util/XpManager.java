@@ -11,15 +11,15 @@ public final class XpManager {
     }
 
     public static int getPlayerTotalXp(Player player) {
-        return getTotalXp(player.getLevel(), player.getExp());
-    }
-
-    public static int getTotalXp(int level, float exp) {
+        int level = player.getLevel();
         int xpFromLevels = 0;
+
         for (int i = 0; i < level; i++) {
             xpFromLevels += getXpToNextLevel(i);
         }
-        int xpFromBar = Math.round(exp * getXpToNextLevel(level));
+
+        int xpFromBar = Math.round(player.getExp() * getXpToNextLevel(level));
+
         return xpFromLevels + xpFromBar;
     }
 
