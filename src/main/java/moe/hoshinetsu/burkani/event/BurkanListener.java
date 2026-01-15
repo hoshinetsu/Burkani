@@ -26,16 +26,21 @@ public class BurkanListener implements Listener {
             if(!meta.getPersistentDataContainer().has(Keys.KEY_BURKAN)) return;
             event.setCancelled(true);
             Player player = event.getPlayer();
-            if(Burkaner.isEmpty(meta)) {
-
-            } else {
-                int lvl = player.getLevel();
-                float xp = player.getExp();
+            Burkaner b = Burkaner.getInstance();
+            int lvl = player.getLevel();
+            if(b.isEmpty(meta)) {
                 if(lvl < 10) {
-                    Burkaner.getInstance().setAmount(meta, xp, lvl);
+                    b.setAmount(meta, 0, lvl);
+                    player.setLevel(0);
+                    player.setExp(0f);
                 } else {
-                    Burkaner.getInstance().setAmount(meta, 0, 10);
+                    b.setAmount(meta, 0, 10);
+                    player.setLevel(lvl - 10);
                 }
+            } else {
+                lvl += b.getLevel(meta);
+                b.setAmount(meta, 0, 0);
+                player.setLevel(lvl);
             }
             item.setItemMeta(meta);
         }

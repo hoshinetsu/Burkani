@@ -16,19 +16,20 @@ public final class Burkaner {
 
     private final String DISPLAYNAME = ChatColor.GREEN + "Burkan";
 
-    public static boolean isEmpty(ItemMeta meta) {
+    public int getLevel(ItemMeta meta){
         assert meta != null;
         PersistentDataContainer dc = meta.getPersistentDataContainer();
         try {
-            float exp = dc.get(Keys.KEY_EXP, PersistentDataType.FLOAT);
-            int levels = dc.get(Keys.KEY_LEVELS, PersistentDataType.INTEGER);
-            if(!isEmpty(meta)) {
-                meta.setLore(List.of(String.format("Contains %d levels and %f XP", levels, exp), "Throw to obtain them"));
-                return;
-            }
+            int lvl = dc.get(Keys.KEY_LEVELS, PersistentDataType.INTEGER);
+            return Math.max(lvl, 0);
         } catch (NullPointerException ignored){
             ;
         }
+        return 0;
+    }
+
+    public boolean isEmpty(ItemMeta meta) {
+        return getLevel(meta) > 0;
     }
 
     public ItemStack getBurkan(){
@@ -62,10 +63,9 @@ public final class Burkaner {
         assert meta != null;
         PersistentDataContainer dc = meta.getPersistentDataContainer();
         try {
-            float exp = dc.get(Keys.KEY_EXP, PersistentDataType.FLOAT);
-            int levels = dc.get(Keys.KEY_LEVELS, PersistentDataType.INTEGER);
-            if(!isEmpty(meta)) {
-                meta.setLore(List.of(String.format("Contains %d levels and %f XP", levels, exp), "Throw to obtain them"));
+            int level = getLevel(meta);
+            if(level > 0) {
+                meta.setLore(List.of(String.format("Contains %d levels", level), "Throw to obtain them"));
                 return;
             }
         } catch (NullPointerException ignored){
