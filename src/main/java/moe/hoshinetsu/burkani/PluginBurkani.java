@@ -15,7 +15,7 @@ public final class PluginBurkani extends JavaPlugin {
     public static PluginBurkani instance = new PluginBurkani();
     private final Configs cfg;
 
-    private PluginBurkani() {
+    public PluginBurkani() {
         instance = this;
         cfg = new Configs(instance);
     }
