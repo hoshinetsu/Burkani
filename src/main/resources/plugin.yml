@@ -8,7 +8,11 @@ description: 'Share Experience Points through Enchanted Bottles'
 website: https://modrinth.com/project/burkani
 commands:
   burkani:
-    description: 'Root command for Burkani'
+    description: 'For all commands, do /burkani help'
 permissions:
+  burkani.help:
+    default: true
   burkani.reload:
+    default: op
+  burkani.give:
     default: op

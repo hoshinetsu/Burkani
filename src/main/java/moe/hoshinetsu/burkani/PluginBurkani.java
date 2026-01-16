@@ -1,6 +1,6 @@
 package moe.hoshinetsu.burkani;
 
-import moe.hoshinetsu.burkani.cmd.CmdExecutor;
+import moe.hoshinetsu.burkani.cmd.RootCmd;
 import moe.hoshinetsu.burkani.config.Configs;
 import moe.hoshinetsu.burkani.event.BurkanListener;
 import moe.hoshinetsu.burkani.item.Burkan;
@@ -47,7 +47,7 @@ public final class PluginBurkani extends JavaPlugin {
         initCrafting();
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new BurkanListener(), this);
-        Objects.requireNonNull(getCommand("burkani")).setExecutor(new CmdExecutor());
+        Objects.requireNonNull(getCommand("burkani")).setExecutor(new RootCmd());
     }
 
     @Override

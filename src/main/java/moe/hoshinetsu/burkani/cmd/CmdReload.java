@@ -10,8 +10,9 @@ public class CmdReload extends ICmd {
         super("burkani.reload");
     }
 
-    public boolean execute(CommandSender executor, Command command, String name, String[] args){
+    public boolean execute(CommandSender executor, Command command, String name, String[] args) {
         PluginBurkani.configs().reload();
+        sendMessage(executor, "&2Burkani's config has been reloaded!");
         return true;
     }
 
