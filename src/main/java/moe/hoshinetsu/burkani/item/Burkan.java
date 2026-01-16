@@ -72,7 +72,7 @@ public class Burkan {
         PersistentDataContainer dc = meta.getPersistentDataContainer();
         dc.set(Keys.KEY_STORED, PersistentDataType.INTEGER, stored);
         updateLore();
-        return xp - stored;
+        return stored;
     }
 
     public ItemStack asItemStack() {

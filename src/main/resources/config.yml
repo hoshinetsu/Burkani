@@ -1,5 +1,4 @@
-# Burkani configuration file.
-version: '1.1-SNAPSHOT'
+#### Burkani configuration file.
 # Capacity of a Burkan, in Experience Points. Allowed values: greater than 0. Datatype: signed 32-bit integer
 burkan-capacity: 160
 # Item text configs
@@ -20,3 +19,5 @@ item:
     - '&aCapacity: &e%capacity% &aXP'
     - '&aStored: &e%stored% &aXP'
     - '&eThrow to obtain XP'
+# Do not change this. Config generated on %version%.
+version: '1.1-SNAPSHOT'

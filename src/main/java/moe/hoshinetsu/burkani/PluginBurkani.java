@@ -1,5 +1,6 @@
 package moe.hoshinetsu.burkani;
 
+import moe.hoshinetsu.burkani.cmd.CmdExecutor;
 import moe.hoshinetsu.burkani.config.Configs;
 import moe.hoshinetsu.burkani.event.BurkanListener;
 import moe.hoshinetsu.burkani.item.Burkan;
@@ -10,9 +11,11 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public final class PluginBurkani extends JavaPlugin {
 
-    public static PluginBurkani instance = new PluginBurkani();
+    public static PluginBurkani instance;
     private final Configs cfg;
 
     public PluginBurkani() {
@@ -40,10 +43,11 @@ public final class PluginBurkani extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        initCrafting();
         cfg.onEnable();
+        initCrafting();
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new BurkanListener(), this);
+        Objects.requireNonNull(getCommand("burkani")).setExecutor(new CmdExecutor());
     }
 
     @Override

@@ -6,3 +6,9 @@ prefix: Burkani
 authors: [ 'hoshinetsu', 'Akamuru' ]
 description: 'Share Experience Points through Enchanted Bottles'
 website: https://modrinth.com/project/burkani
+commands:
+  burkani:
+    description: 'Root command for Burkani'
+permissions:
+  burkani.reload:
+    default: op
