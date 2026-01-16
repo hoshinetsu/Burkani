@@ -2,6 +2,7 @@ package moe.hoshinetsu.burkani;
 
 import moe.hoshinetsu.burkani.config.Configs;
 import moe.hoshinetsu.burkani.event.BurkanListener;
+import moe.hoshinetsu.burkani.item.Burkan;
 import moe.hoshinetsu.burkani.util.Keys;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -14,21 +15,21 @@ public final class PluginBurkani extends JavaPlugin {
     public static PluginBurkani instance = new PluginBurkani();
     private final Configs cfg;
 
-    private PluginBurkani(){
+    private PluginBurkani() {
         instance = this;
         cfg = new Configs(instance);
     }
 
-    public static PluginBurkani getInstance(){
+    public static PluginBurkani getInstance() {
         return instance;
     }
 
-    public static Configs configs(){
+    public static Configs configs() {
         return getInstance().cfg;
     }
 
-    private void initCrafting(){
-        ShapedRecipe recipe = new ShapedRecipe(Keys.KEY_BURKAN, Burkaner.getInstance().getBurkan());
+    private void initCrafting() {
+        ShapedRecipe recipe = new ShapedRecipe(Keys.KEY_BURKAN, Burkan.getEmpty().asItemStack());
 
         recipe.shape(" M ", "MBM", " M ");
         recipe.setIngredient('B', Material.EXPERIENCE_BOTTLE);

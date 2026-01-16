@@ -2,7 +2,21 @@
 version: '1.1-SNAPSHOT'
 # Capacity of a Burkan, in Experience Points. Allowed values: greater than 0. Datatype: signed 32-bit integer
 burkan-capacity: 160
-# Language configurations
-lang:
+# Item text configs
+# Placeholders:
+# %capacity% - burkan capacity
+# %stored% - XP stored in the burkan
+item:
   burkan-name: '&aXP Burkan'
-  burkan-
+  lore-empty:
+    - '&aCapacity: &e%capacity% &aXP'
+    - '&cCurrently empty'
+    - '&eThrow to store XP'
+  lore-stored:
+    - '&aCapacity: &e%capacity% &aXP'
+    - '&aStored: &e%stored% &aXP'
+    - '&eThrow to obtain XP'
+  lore-full:
+    - '&aCapacity: &e%capacity% &aXP'
+    - '&aStored: &e%stored% &aXP'
+    - '&eThrow to obtain XP'
