@@ -9,5 +9,6 @@ public final class Keys {
     }
 
     public static final NamespacedKey KEY_BURKAN = new NamespacedKey(PluginBurkani.getInstance(), "burkan");
-    public static final NamespacedKey KEY_TEXP = new NamespacedKey(PluginBurkani.getInstance(), "experience");
+    public static final NamespacedKey KEY_STORED = new NamespacedKey(PluginBurkani.getInstance(), "stored_xp");
+    public static final NamespacedKey KEY_CAPACITY = new NamespacedKey(PluginBurkani.getInstance(), "xp_capacity");
 }

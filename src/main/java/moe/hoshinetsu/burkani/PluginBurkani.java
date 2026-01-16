@@ -1,24 +1,30 @@
 package moe.hoshinetsu.burkani;
 
+import moe.hoshinetsu.burkani.config.Configs;
 import moe.hoshinetsu.burkani.event.BurkanListener;
 import moe.hoshinetsu.burkani.util.Keys;
-import moe.hoshinetsu.burkani.util.Burkaner;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
 
 public final class PluginBurkani extends JavaPlugin {
 
-    public static PluginBurkani instance;
+    public static PluginBurkani instance = new PluginBurkani();
+    private final Configs cfg;
 
-    public PluginBurkani(){
+    private PluginBurkani(){
         instance = this;
+        cfg = new Configs(instance);
     }
 
     public static PluginBurkani getInstance(){
         return instance;
+    }
+
+    public static Configs configs(){
+        return getInstance().cfg;
     }
 
     private void initCrafting(){
@@ -34,7 +40,9 @@ public final class PluginBurkani extends JavaPlugin {
     @Override
     public void onEnable() {
         initCrafting();
-        getServer().getPluginManager().registerEvents(new BurkanListener(), this);
+        cfg.onEnable();
+        PluginManager pm = getServer().getPluginManager();
+        pm.registerEvents(new BurkanListener(), this);
     }
 
     @Override

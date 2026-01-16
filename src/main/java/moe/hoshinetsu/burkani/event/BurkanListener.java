@@ -1,5 +1,6 @@
 package moe.hoshinetsu.burkani.event;
 
+import moe.hoshinetsu.burkani.item.Burkan;
 import moe.hoshinetsu.burkani.util.Burkaner;
 import moe.hoshinetsu.burkani.util.Keys;
 import moe.hoshinetsu.burkani.util.XpManager;
@@ -18,19 +19,18 @@ public class BurkanListener implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
             return;
         ItemStack item = event.getItem();
-        if (item == null || item.getType() != Material.EXPERIENCE_BOTTLE || item.getItemMeta() == null)
-            return;
-        ItemMeta meta = item.getItemMeta();
-        if (!meta.getPersistentDataContainer().has(Keys.KEY_BURKAN))
-            return;
+
+        if(!Burkan.isBurkan(item)) return;
+        // is burkan!
         event.setCancelled(true);
 
-        Burkaner b = Burkaner.getInstance();
+        Burkan b = new Burkan(item);
+
         Player player = event.getPlayer();
         int xp = XpManager.getPlayerTotalXp(player);
 
-        if (b.isEmpty(meta)) {
-            b.setAmount(meta, Math.min(xp, 160));
+        if (b.isEmpty()) {
+            b.storeXP(xp);
             xp = Math.max(0, xp - 160);
             XpManager.setPlayerTotalXp(player, xp);
         } else {
@@ -38,7 +38,5 @@ public class BurkanListener implements Listener {
             XpManager.setPlayerTotalXp(player, xp);
             b.setAmount(meta, 0);
         }
-
-        item.setItemMeta(meta);
     }
 }

@@ -35,7 +35,7 @@ public class XpManagerTest {
      * Test for Level up cost calculation method
      */
     @Test
-    public void getXpToNextLevelTest(){
+    public void getXpToNextLevelTest() {
         // TODO
         Assert.assertEquals(true, true);
     }
@@ -44,7 +44,7 @@ public class XpManagerTest {
      * Test for Level to XP conversion
      */
     @Test
-    public void getTotalXpTest(){
+    public void getTotalXpTest() {
         for(Map.Entry<Integer, Integer> entry : testMappings.entrySet()){
             int level = entry.getKey(); // Expected Level
             int xp = entry.getValue(); // Total player XP at that level
@@ -55,9 +55,6 @@ public class XpManagerTest {
 
             // Run assertions
             Assert.assertEquals(xp, XpManager.getPlayerTotalXp(dp));
-
-            // Print test confirmation
-            System.out.printf("Test Lv %d = %d XP passed\n", level, xp);
         }
     }
 
@@ -65,7 +62,7 @@ public class XpManagerTest {
      * Test for Total XP to Levels conversion
      */
     @Test
-    public void setPlayerTotalXpTest(){
+    public void setPlayerTotalXpTest() {
         for(Map.Entry<Integer, Integer> entry : testMappings.entrySet()){
             int expectedLevel = entry.getKey(); // Expected Level
             int totalXP = entry.getValue(); // Total player XP at that level
@@ -80,9 +77,6 @@ public class XpManagerTest {
             // Run assertions
             Assert.assertEquals(expectedLevel, level);
             Assert.assertEquals(0, xp, 0.001); // allowed 0.1% floating point accuracy
-
-            // Print test confirmation
-            System.out.printf("Test tXP %d = %d Lv & %f XP passed\n", totalXP, level, xp);
         }
     }
 }

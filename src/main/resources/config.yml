@@ -1,4 +1,8 @@
 # Burkani configuration file.
 version: '1.1-SNAPSHOT'
-# Capacity of the Burkan, in Experience Points. Allowed values: greater than 0. Datatype: signed 32-bit integer
+# Capacity of a Burkan, in Experience Points. Allowed values: greater than 0. Datatype: signed 32-bit integer
 burkan-capacity: 160
+# Language configurations
+lang:
+  burkan-name: '&aXP Burkan'
+  burkan-
