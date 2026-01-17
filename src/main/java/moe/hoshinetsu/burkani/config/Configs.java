@@ -34,15 +34,19 @@ public final class Configs {
         return fc.getInt("burkan-capacity", 160);
     }
 
-    public ConfigurationSection getLang() {
-        return fc.getConfigurationSection("item");
+    public ConfigurationSection getItems() {
+        return fc.getConfigurationSection("items");
     }
 
-    public String getItemName() {
-        return processColors(getLang().getString("burkan-name"));
+    public ConfigurationSection getItem(String item) {
+        return getItems().getConfigurationSection(item);
     }
 
-    public List<String> processLore(int state, int stored, int capacity) {
+    public String getItemName(String item) {
+        return processColors(getItem(item).getString("name"));
+    }
+
+    public List<String> processLore(String item, int state, int stored, int capacity) {
         String stateLore = "lore-";
         switch (state) {
             case 1: {
@@ -58,7 +62,7 @@ public final class Configs {
                 break;
             }
         }
-        List<String> lore = getLang().getStringList(stateLore);
+        List<String> lore = getItem(item).getStringList(stateLore);
         for (int i = 0; i < lore.size(); i++) {
             String line = processColors(lore.get(i));
             line = line.replace("%stored%", Integer.toString(stored));

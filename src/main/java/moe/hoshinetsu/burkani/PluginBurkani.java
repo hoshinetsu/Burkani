@@ -8,7 +8,6 @@ import moe.hoshinetsu.burkani.util.Keys;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -31,22 +30,17 @@ public final class PluginBurkani extends JavaPlugin {
         return getInstance().cfg;
     }
 
-    private void initCrafting() {
-        ShapedRecipe recipe = new ShapedRecipe(Keys.KEY_BURKAN, Burkan.getEmpty().asItemStack());
-
-        recipe.shape(" M ", "MBM", " M ");
-        recipe.setIngredient('B', Material.EXPERIENCE_BOTTLE);
-        recipe.setIngredient('M', Material.COPPER_INGOT);
-
-        Bukkit.addRecipe(recipe);
-    }
-
     @Override
     public void onEnable() {
         cfg.onEnable();
-        initCrafting();
-        PluginManager pm = getServer().getPluginManager();
-        pm.registerEvents(new BurkanListener(), this);
+
+        ShapedRecipe recipe = new ShapedRecipe(Keys.KEY_BURKAN, Burkan.getEmpty().asItemStack());
+        recipe.shape(" M ", "MBM", " M ");
+        recipe.setIngredient('B', Material.EXPERIENCE_BOTTLE);
+        recipe.setIngredient('M', Material.COPPER_INGOT);
+        Bukkit.addRecipe(recipe);
+
+        getServer().getPluginManager().registerEvents(new BurkanListener(), this);
         Objects.requireNonNull(getCommand("burkani")).setExecutor(new RootCmd());
     }
 

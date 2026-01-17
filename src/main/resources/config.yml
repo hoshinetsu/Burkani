@@ -5,20 +5,21 @@ burkan-capacity: 160
 # Placeholders:
 # %capacity% - burkan capacity
 # %stored% - XP stored in the burkan
-item:
-  burkan-name: '&aXP Burkan'
-  lore-empty:
+items:
+  burkan:
+    name: '&aXP Burkan'
+    lore-empty:
     - '&aCapacity: &e%capacity% &aXP'
     - '&cCurrently empty'
     - '&eThrow to store XP'
-  lore-stored:
+    lore-stored:
     - '&aCapacity: &e%capacity% &aXP'
     - '&aStored: &e%stored% &aXP'
     - '&eThrow to obtain XP'
-  lore-full:
+    lore-full:
     - '&aCapacity: &e%capacity% &aXP'
-    - '&aStored: &e%stored% &aXP'
+    - '&aStored: &e%stored% &aXP &6(Full)'
     - '&eThrow to obtain XP'
 
 # Do not change this. Config generated on %version%.
-version: '1.1-SNAPSHOT'
+version: '1.2'

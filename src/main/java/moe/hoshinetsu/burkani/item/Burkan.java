@@ -11,14 +11,19 @@ import org.bukkit.persistence.PersistentDataType;
 public class Burkan {
     private final ItemStack stack;
     private final ItemMeta meta;
+    private final String type;
     private int capacity;
 
     public Burkan(ItemStack stack) {
         this.stack = stack;
+        type = "burkan";
+
         meta = stack.getItemMeta();
         assert meta != null;
-        meta.setDisplayName(PluginBurkani.configs().getItemName());
+
+        meta.setDisplayName(PluginBurkani.configs().getItemName(type));
         meta.setMaxStackSize(1);
+
         PersistentDataContainer dc = meta.getPersistentDataContainer();
         dc.set(Keys.KEY_BURKAN, PersistentDataType.BOOLEAN, true);
         try {
@@ -50,7 +55,7 @@ public class Burkan {
 
     public void updateLore() {
         int state = (isEmpty() ? 1 : 0) + (isFull() ? 2 : 0);
-        meta.setLore(PluginBurkani.configs().processLore(state, getExp(), capacity));
+        meta.setLore(PluginBurkani.configs().processLore(type, state, getExp(), capacity));
         asItemStack();
     }
 

@@ -1,5 +1,5 @@
 name: Burkani
-version: '1.1-SNAPSHOT'
+version: '1.2'
 main: moe.hoshinetsu.burkani.PluginBurkani
 api-version: '1.21'
 prefix: Burkani

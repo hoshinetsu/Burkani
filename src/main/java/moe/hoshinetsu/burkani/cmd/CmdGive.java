@@ -29,7 +29,7 @@ public class CmdGive extends ICmd {
             } catch (NumberFormatException ignored) {
             }
         }
-        sendMessage(sender, String.format("&2Given &a%d XP Burkans &2to &a%s&2.", xp, target.getName()));
+        sendMessage(sender, String.format("&2Given Burkan with &a%d XP &2to &a%s&2.", xp, target.getName()));
         Burkan b = Burkan.getEmpty();
         b.storeXP(xp);
         target.getInventory().addItem(b.asItemStack());
